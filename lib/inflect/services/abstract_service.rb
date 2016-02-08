@@ -3,7 +3,7 @@ module Inflect
 		# AbstractService acts as an specification or standard required
 		# for a Service Class to be consumed by the application. A Service 
 		# Class is just a wrapper for any possible service you'd like to 
-		# give support to, just by having three prerequisites:
+		# give support to, just by having four prerequisites:
 		# 
 		# 	- A WORDS Array constant with the key words of the Service,
 		# 	for example:
@@ -14,14 +14,19 @@ module Inflect
 		# 			#...
 		# 		end
 		WORDS = []
-    # 		
+
+		# 	- A PRIORITY constant with the priority that will be given to
+		# 	the service in case there are modules that provide similar 
+		# 	contents, if no PRIORITY is given, it is given 0 by default.
+		#
+		PRIORITY = 0 	
 		# 	- A valid?(words) method, that receives an Array of 
 		# 	words and returns either true or false, depending on the 
 		# 	WORDS Array.
 		#
 		def self.valid?(words)
 			message = "#{self.class} must implement valid? method,
-					   for more imformation see AbstractService class. "
+					   for more imformation see AbstractService class."
 			raise NoMethodError.new message
 		end
 
