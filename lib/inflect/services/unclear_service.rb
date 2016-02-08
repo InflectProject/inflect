@@ -2,6 +2,9 @@ require 'abstract_service'
 
 module Inflect
   class UnclearService < Inflect::AbstractService
+    # UnclearService is the Service in charge of responding when
+    # no other one does, it has the PRIORITY set to INFINITY so 
+    # that it is always the last Service to be asked.
     PRIORITY = Float::INFINITY
 
     def valid?(words)
