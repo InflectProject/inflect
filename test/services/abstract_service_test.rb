@@ -5,7 +5,7 @@ class AbstractServiceTest < Minitest::Test
 	MockService = Class.new(Inflect::AbstractService)
 
 	def setup
-		@service = MockService.new
+		@service = MockService
 		@words = %w[Hakunah Matata]
 	end
 

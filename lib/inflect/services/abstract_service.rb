@@ -19,7 +19,7 @@ module Inflect
 		# 	words and returns either true or false, depending on the 
 		# 	WORDS Array.
 		#
-		def valid?(words)
+		def self.valid?(words)
 			message = "#{self.class} must implement valid? method,
 					   for more imformation see AbstractService class. "
 			raise NoMethodError.new message
@@ -28,7 +28,7 @@ module Inflect
 		# 	- A handle(words) method that returns a JSON response (or
 		# 	a Hash?) with the according data.
 		#
-		def handle(words)
+		def self.handle(words)
 			message = "#{self.class} must implement handle method,
 					   for more imformation see AbstractService class."
 			raise NoMethodError.new message
@@ -37,7 +37,7 @@ module Inflect
 		# TODO: define a standard procedure for securing the AbtractService interface,
 		# extract the NoMethodError exception a more suitable one, like 
 		# MethodNotDefinedError.
-    # 
+		# 
     # TODO: define a standard format for the handle response.
 	end
 end
