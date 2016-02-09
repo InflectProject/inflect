@@ -5,6 +5,7 @@ module Inflect
   # Responsable for loading all the services for Inflect
   # to comunicate with them and decide wich one will handle
   # the request.
+  # 
   module Loader
     # Loads all the services from the given path, sorted by
     # PRIORITY from lowest (1) to highest (INFINITY).
@@ -12,10 +13,11 @@ module Inflect
     # @params path [String] A String indicating the path to
     #   the services directory.
     # @return [Array] The Service Classes sorted by PRIORITY.
+    # @todo Extract path to Configuration class
+    # @todo Manage exceptions during file requiring.
     def self.services(path)
       mods = []
-      # @todo: Extract path to Configuration class.
-      # @todo: Manage exceptions during file requiring.
+
       Dir["#{path}/*.rb"].each do |file|
         begin
           require "#{file}"
