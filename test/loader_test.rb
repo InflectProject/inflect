@@ -23,4 +23,8 @@ class LoaderTest < Minitest::Test
 
     assert @services.map(&check_service).reduce { |a, b| a && b }
   end
+
+  def test_services_are_sorted_by_priority
+    assert_operator @services.shift::PRIORITY, :<=, @services.shift::PRIORITY
+  end
 end

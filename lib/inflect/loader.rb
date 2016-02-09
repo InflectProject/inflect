@@ -28,7 +28,7 @@ module Inflect
         filename = File.basename(file, '.rb')
         mods << AbstractService.const_get(camelize(filename))
       end
-      mods
+      mods.sort
     end
 
     private

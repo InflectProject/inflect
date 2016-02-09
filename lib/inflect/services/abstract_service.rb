@@ -7,7 +7,14 @@ module Inflect
 	# @todo Define a standard procedure for securing the AbtractService 
 	# 	interface, extract the NoMethodError exception a more suitable one, 
 	# 	like MethodNotDefinedError.
-	class AbstractService			
+	class AbstractService
+		include Comparable
+
+		# Implement Comparable in order to be sortable.
+		def self.<=> (other_service)
+			self::PRIORITY <=> other_service::PRIORITY
+		end
+
 		# A WORDS Array constant with the key words of the Service.
 		# @example Array for New York Times service
 		# 	WORDS = %W[ NEWS TODAY NEW\ YORK\ TIMES]	
