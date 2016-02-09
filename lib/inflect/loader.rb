@@ -1,5 +1,4 @@
 require_relative './services/abstract_service'
-require 'pry'
 
 module Inflect
   # Responsable for loading all the services for Inflect
@@ -10,10 +9,10 @@ module Inflect
     # Loads all the services from the given path, sorted by
     # PRIORITY from lowest (1) to highest (INFINITY).
     # 
-    # @params path [String] A String indicating the path to
+    # @param path [String] A String indicating the path to
     #   the services directory.
     # @return [Array] The Service Classes sorted by PRIORITY.
-    # @todo Extract path to Configuration class
+    # @todo Extract path to Configuration class.
     # @todo Manage exceptions during file requiring.
     def self.services(path)
       mods = []
