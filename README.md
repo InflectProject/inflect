@@ -33,6 +33,20 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/inflect.
 We follow the Ruby best practices and community-driven standards well explained in bbatsov's ruby-style-guide, see https://github.com/bbatsov/ruby-style-guide.
 
+## Docs
+
+To generate docs run (if not installed): 
+
+```ruby
+  gem install yard
+```
+Then to generate the docs:
+  
+  $ yardoc
+
+To run doc server:
+
+  $ yard server
 
 ## License
 
