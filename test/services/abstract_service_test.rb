@@ -1,5 +1,4 @@
 require 'test_helper'
-require_relative '../../lib/inflect/services/abstract_service'
 
 class AbstractServiceTest < Minitest::Test
 	MockService = Class.new(Inflect::AbstractService)

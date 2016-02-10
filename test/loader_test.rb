@@ -1,5 +1,5 @@
 require 'test_helper'
-require_relative '../lib/inflect/loader'
+require 'inflect/loader'
 
 class LoaderTest < Minitest::Test
   def setup

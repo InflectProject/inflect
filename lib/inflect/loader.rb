@@ -1,4 +1,4 @@
-require_relative './services/abstract_service'
+require 'abstract_service'
 
 module Inflect
   # Responsable for loading all the services for Inflect
