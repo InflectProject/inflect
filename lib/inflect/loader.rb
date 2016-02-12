@@ -18,11 +18,7 @@ module Inflect
       mods = []
 
       Dir["#{path}/*.rb"].each do |file|
-        begin
-          require "#{file}"
-        rescue IOError => e
-          puts e.message
-        end
+        require "#{file}"
 
         filename = File.basename(file, '.rb')
         mods << AbstractService.const_get(camelize(filename))
