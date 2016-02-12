@@ -9,27 +9,33 @@ module Inflect
   #   like MethodNotDefinedError.
   class AbstractService
     include Comparable
+    include Singleton
 
-    # Implement Comparable in order to be sortable.
-    def self.<=> (other_service)
-      self::PRIORITY <=> other_service::PRIORITY
-    end
-
-    # A WORDS Array constant with the key words of the Service.
+    # A words Array constant with the key 'words' of the Service.
     # @example Array for New York Times service
-    #   WORDS = %W[ NEWS TODAY NEW\ YORK\ TIMES]  
-    WORDS = []
+    #   words = %W[ NEWS TODAY NEW\ YORK\ TIMES]
+    attr_reader :words
 
     # In case there are modules that provide similar contents the
-    # one with most PRIORITY is picked.
-    PRIORITY = 0
-    
+    # one with most 'priority' is picked.
+    attr_reader :priority
+
+    def initialize
+      @priority = 0
+      @words    = []
+    end
+
+    # Implement Comparable in order to be sortable.
+    def <=> (other_service)
+      priority <=> other_service.priority
+    end
+
     # Receives an Array of words and returns true or false depending
     # if the Service can handle the request given by the words.
     #   
     # @param words [Array] an Array of strings with key words.
     # @return [Boolean]
-    def self.valid?(words)
+    def valid?(words)
       message = "#{self.class} must implement valid? method,
              for more imformation see AbstractService class."
       raise NoMethodError.new message
@@ -39,7 +45,7 @@ module Inflect
     #
     # @param words [Array] an Array of strings with key words.
     # @todo Define a standard format for the handle response.
-    def self.handle(words)
+    def handle(words)
       message = "#{self.class} must implement handle method,
              for more imformation see AbstractService class."
       raise NoMethodError.new message

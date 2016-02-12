@@ -21,7 +21,7 @@ module Inflect
         require "#{file}"
 
         filename = File.basename(file, '.rb')
-        mods << AbstractService.const_get(camelize(filename))
+        mods << AbstractService.const_get(camelize(filename)).instance
       end
       mods.sort
     end
