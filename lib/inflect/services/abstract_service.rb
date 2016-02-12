@@ -11,13 +11,13 @@ module Inflect
     include Comparable
     include Singleton
 
-    # A words Array constant with the key 'words' of the Service.
+    # A +words+ Array constant with the key +words+ of the Service.
     # @example Array for New York Times service
     #   words = %W[ NEWS TODAY NEW\ YORK\ TIMES]
     attr_reader :words
 
     # In case there are modules that provide similar contents the
-    # one with most 'priority' is picked.
+    # one with most +priority+ is picked.
     attr_reader :priority
 
     def initialize
