@@ -1,4 +1,5 @@
 require 'abstract_service'
+require 'inflect/inflector'
 
 module Inflect
   # Responsable for loading all the services for Inflect
@@ -6,6 +7,7 @@ module Inflect
   # the request.
   # 
   module Loader
+    using Inflector
     # Loads all the services from the given path, sorted by
     # PRIORITY from lowest (1) to highest (INFINITY).
     # 
@@ -21,20 +23,9 @@ module Inflect
         require "#{file}"
 
         filename = File.basename(file, '.rb')
-        mods << AbstractService.const_get(camelize(filename)).instance
+        mods << AbstractService.const_get(filename.camelize).instance
       end
       mods.sort
-    end
-
-    private
-
-    SNAKE_SEPARATOR = '_'
-
-    # @todo Extract camelize method a proper domain Object, 
-    # camelizing a string should not be the Loader's responsability, 
-    # but.. its a start.
-    def self.camelize(str)
-      str.split(SNAKE_SEPARATOR).map(&:capitalize!).join
     end
   end
 end
