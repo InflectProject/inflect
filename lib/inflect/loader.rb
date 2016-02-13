@@ -14,7 +14,6 @@ module Inflect
     # @param path [String] A String indicating the path to
     #   the services directory.
     # @return [Array] The Service Classes sorted by PRIORITY.
-    # @todo Extract path to Configuration class.
     # @todo Extract AbstractService reference to decouple module.
     def self.services(path)
       mods = []

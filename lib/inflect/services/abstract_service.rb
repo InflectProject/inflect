@@ -3,10 +3,6 @@ module Inflect
   # Class to be consumed by the application. A Service Class is 
   # just a wrapper for any possible service you'd like to give 
   # support to, just by having four prerequisites.
-  # 
-  # @todo Define a standard procedure for securing the AbtractService 
-  #   interface, extract the NoMethodError exception a more suitable one, 
-  #   like MethodNotDefinedError.
   class AbstractService
     include Comparable
     include Singleton

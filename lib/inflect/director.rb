@@ -1,11 +1,14 @@
 require 'inflect/loader'
+require 'inflect/configuration'
 
 module Inflect
   class Director
     attr_reader :services
 
     def initialize(services_path = nil)
-      @services = @loader.services(services_path || File.expand_path(__dir__, '/services'))
+      @services = Loader.services(
+        services_path || Inflect.configuration.services_path
+      )
     end
 
     # Finds the first Service that is able 

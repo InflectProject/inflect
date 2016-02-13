@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'inflect/director'
+require 'pry'
 
 class DirectorTest < Minitest::Test
   def setup
