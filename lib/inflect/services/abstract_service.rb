@@ -1,11 +1,14 @@
+require 'inflect/responsive'
+
 module Inflect
-  # Acts as an specification or standard required for a Service 
-  # Class to be consumed by the application. A Service Class is 
-  # just a wrapper for any possible service you'd like to give 
+  # Acts as an specification or standard required for a Service
+  # Class to be consumed by the application. A Service Class is
+  # just a wrapper for any possible service you'd like to give
   # support to, just by having four prerequisites.
   class AbstractService
     include Comparable
     include Singleton
+    include Responsive
 
     # A +words+ Array constant with the key +words+ of the Service.
     # @example Array for New York Times service
@@ -28,7 +31,7 @@ module Inflect
 
     # Receives an Array of words and returns true or false depending
     # if the Service can handle the request given by the words.
-    #   
+    #
     # @param words [Array] an Array of strings with key words.
     # @return [Boolean]
     def valid?(words)
