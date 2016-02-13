@@ -1,5 +1,5 @@
-require 'abstract_service'
 require 'inflect/inflector'
+require 'inflect/configuration'
 
 module Inflect
   # Responsable for loading all the services for Inflect
@@ -14,7 +14,6 @@ module Inflect
     # @param path [String] A String indicating the path to
     #   the services directory.
     # @return [Array] The Service Classes sorted by PRIORITY.
-    # @todo Extract AbstractService reference to decouple module.
     def self.services(path)
       services = []
 
@@ -22,7 +21,9 @@ module Inflect
         require "#{file}"
 
         filename = File.basename(file, '.rb')
-        services << AbstractService.const_get(filename.camelize).instance
+        base_service = Inflect.configuration.base_service
+        
+        services << base_service.const_get(filename.camelize).instance
       end
       services.sort
     end

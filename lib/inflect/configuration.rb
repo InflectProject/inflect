@@ -1,3 +1,5 @@
+require 'abstract_service'
+
 module Inflect
   class << self
     attr_reader :configuration
@@ -15,9 +17,11 @@ module Inflect
   # configuration.
   class Configuration
     attr_reader :services_path
+    attr_reader :base_service
 
     def initialize
       @services_path = File.join(__dir__, 'services')
+      @base_service  = AbstractService
     end
   end
 end

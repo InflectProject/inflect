@@ -14,13 +14,13 @@ module Inflect
       )
     end
 
-    # Finds the first Service that is able 
+    # Finds the first Service that is able
     # to handle the request and lets him do
     # the work.
     # @param words [Array<String, Symbol>]
     def handle(words)
-      service = services.select { |service| service.valid?(words) }.first
-      service.handle(words)
+      selected_service = services.select { |service| service.valid?(words) }.first
+      selected_service.handle(words)
     end
   end
 end
