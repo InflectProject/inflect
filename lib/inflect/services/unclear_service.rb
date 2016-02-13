@@ -5,7 +5,10 @@ module Inflect
   # no other one does, it has the PRIORITY set to INFINITY so
   # that it is always the last Service to be asked.
   class UnclearService < Inflect::AbstractService
-    PRIORITY = Float::INFINITY
+    def initialize
+      @priority = Float::INFINITY
+      @words    = []
+    end
 
     def valid?(words)
       true
