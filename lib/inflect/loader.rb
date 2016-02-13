@@ -16,15 +16,15 @@ module Inflect
     # @return [Array] The Service Classes sorted by PRIORITY.
     # @todo Extract AbstractService reference to decouple module.
     def self.services(path)
-      mods = []
+      services = []
 
       Dir["#{path}/*.rb"].each do |file|
         require "#{file}"
 
         filename = File.basename(file, '.rb')
-        mods << AbstractService.const_get(filename.camelize).instance
+        services << AbstractService.const_get(filename.camelize).instance
       end
-      mods.sort
+      services.sort
     end
   end
 end
