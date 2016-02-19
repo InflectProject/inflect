@@ -15,6 +15,7 @@ class ResponsiveTest < Minitest::Test
   def test_can_response
     assert_respond_to @service, :respond
   end
+
   def test_responds_with_response_object
     words = ['NEWS']
     assert_equal @service.handle(words).class, Inflect::Response

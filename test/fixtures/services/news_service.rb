@@ -5,6 +5,11 @@ class NewsService < Inflect::AbstractService
   end
 
   def handle(words)
-    respond 'News Response'
+    description = {
+      served_by: self.class,
+      query_words: words,
+      handled_word: self.words
+    }
+    respond 'News Response', description
   end
 end
