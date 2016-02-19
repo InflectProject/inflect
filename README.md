@@ -35,20 +35,19 @@ We follow the Ruby best practices and community-driven standards well explained 
 
 ## Docs
 
-To generate docs run (if not installed): 
+To generate docs run (if not installed):
 
 ```ruby
   gem install yard
 ```
 Then to generate the docs:
-  
-  $ yardoc
+
+    $ yardoc
 
 To run doc server:
 
-  $ yard server
+    $ yard server
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

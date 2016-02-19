@@ -1,6 +1,6 @@
 require 'test_helper'
 require 'inflect/director'
-require 'pry'
+require 'inflect/response'
 
 class DirectorTest < Minitest::Test
   def setup
@@ -12,7 +12,9 @@ class DirectorTest < Minitest::Test
     assert_respond_to @director, :services
   end
 
-  # Depends on Inflect::Response implementation
   def test_handle_should_return_response_object
+    response = @director.handle(['NEWS'])
+    assert_kind_of Inflect::Response, response,
+      "Director#handle didn\'t returned a/n #{response.class}"
   end
 end

@@ -32,6 +32,8 @@ module Inflect
     # Receives an Array of words and returns true or false depending
     # if the Service can handle the request given by the words.
     #
+    # @todo Standarize the way valid? searches in words array so we
+    #   don't have to implement that logic in every service.
     # @param words [Array] an Array of strings with key words.
     # @return [Boolean]
     def valid?(words)
