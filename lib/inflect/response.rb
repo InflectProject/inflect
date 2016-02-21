@@ -17,7 +17,7 @@ module Inflect
       @errors = {}
       @response_description = {
         served_by: description[:served_by] || nil,
-        query_words: description[:query_words] || [""],
+        query_words: description[:query_words] || nil,
         handled_word: description[:handled_word] || nil,
         talk_to_service: description[:talk_to_service] || false,
         speech_response: description[:speech_response] || false
@@ -48,7 +48,7 @@ module Inflect
       end
 
       def valid_attribute_query_words
-        if response_description[:query_words].nil?
+        if response_description[:query_words].nil? || response_description[:query_words].empty?
           @errors[:query_words] = 'Queried words is required.'
           return false
         end
