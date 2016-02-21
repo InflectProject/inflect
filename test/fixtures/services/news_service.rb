@@ -9,6 +9,6 @@ class NewsService < Inflect::AbstractService
   end
 
   def handle(words)
-    respond 'News Response'
+    respond 'News Response', { served_by: self.class, query_words: words, handled_word: self.words.detect {|w| words.include? w } }
   end
 end
