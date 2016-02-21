@@ -10,6 +10,13 @@ class ResponsiveTest < Minitest::Test
     end
 
     @service = NewsService.instance
+
+    # Added #handle! to test #respond! and thus test the validation skip.  
+    @service.instance_eval do
+      def handle!(words)
+        respond! 'News Response', { served_by: self.class, query_words: words }
+      end
+    end
   end
 
   def test_can_response
@@ -19,5 +26,12 @@ class ResponsiveTest < Minitest::Test
   def test_responds_with_response_object
     words = ['NEWS']
     assert_equal @service.handle(words).class, Inflect::Response
+  end
+
+  def test_responds_with_response_object_skipping_response_validation
+    words = ['NEWS']
+    response = @service.handle!(words)
+    assert_equal response.class, Inflect::Response
+    refute response.is_valid?
   end
 end
