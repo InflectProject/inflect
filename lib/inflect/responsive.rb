@@ -6,46 +6,21 @@ module Inflect
 
     # Method that creates Response instance.
     # @param content [String, Hash] the response of the service.
-    # @return [Inflect::Response]
-    # @todo Manage additional and default options such as +words+ and +served_by+
+    # @return [Inflect::Response, nil] Returns nil if response is not valid.
     def respond(content, options = {})
-      validate_response(Inflect::Response.new(content, options))
+      valid_response(Inflect::Response.new(content, options))
     end
 
-    def validate_response(response)
-      validate_attribute_content response
-      validate_attribute_served_by response
-      validate_attribute_query_words response
-      validate_attribute_handled_words response
-      response
+    # Method that creates Response instance, skipping response validation.
+    # @param content [String, Hash] the response of the service.
+    # @return [Inflect::Response]
+    def respond!(content, options = {})
+      Inflect::Response.new(content, options)
     end
 
-    def validate_attribute_content(response)
-      unless [String, Hash].include? response.content.class
-        raise 'Content must be a String or Hash instance.'
-      end
-      response
-    end
-
-    def validate_attribute_served_by(response)
-      if response.response_description[:served_by].nil?
-        raise 'Handled service reference is required.'
-      end
-      response
-    end
-
-    def validate_attribute_query_words(response)
-      if response.response_description[:query_words].nil?
-        raise 'Queried words is required.'
-      end
-      response
-    end
-
-    def validate_attribute_handled_words(response)
-      if response.response_description[:handled_word].nil?
-        raise 'Handled words of service is required.'
-      end
-      response
+    private
+    def valid_response(response)
+      response.is_valid? ? response : nil
     end
   end
 end
