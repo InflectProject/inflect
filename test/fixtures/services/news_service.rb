@@ -4,11 +4,13 @@ class NewsService < Inflect::AbstractService
     @words    = ['NEWS']
   end
 
+  # @todo Standarize #valid? for all services.
   def valid?(words)
     @words.select { |my_word| words.include? my_word }.reduce { |a, b| a || b }
   end
 
+  # @todo More refactoring on options!!!
   def handle(words)
-    respond 'News Response', { served_by: self.class, query_words: words, handled_word: self.words.detect {|w| words.include? w } }
+    respond 'News Response', { handled_word: self.valid?(words), query_words: words }
   end
 end

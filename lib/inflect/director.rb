@@ -20,7 +20,7 @@ module Inflect
     # @param words [Array<String, Symbol>]
     def handle(words)
       selected_service = services.select { |service| service.valid?(words) }.first
-      selected_service.handle(words)
+      selected_service.handle(words) unless selected_service.nil?
     end
   end
 end

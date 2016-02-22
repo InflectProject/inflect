@@ -17,4 +17,8 @@ class DirectorTest < Minitest::Test
     assert_kind_of Inflect::Response, response,
       "Director#handle didn\'t returned a/n #{response.class}"
   end
+  def test_handle_should_return_response_object
+    response = @director.handle(['UNKNOWN WORD'])
+    assert_nil response
+  end
 end

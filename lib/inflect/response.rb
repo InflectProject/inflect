@@ -24,13 +24,14 @@ module Inflect
       }
     end
 
-    #Validates required attributes for a valid response
+    #Validates required attributes for a valid response.
     # @return [true, false]
     def is_valid?
       valid_attribute_content & valid_attribute_served_by & valid_attribute_query_words & valid_attribute_handled_word
     end
 
     private
+      # @todo I18n errors.
       def valid_attribute_content
         unless [String, Hash].include? content.class
           @errors[:content] = 'Content must be a String or Hash instance.'
@@ -39,6 +40,7 @@ module Inflect
         true
       end
 
+      # @todo I18n errors.
       def valid_attribute_served_by
         if response_description[:served_by].nil?
           @errors[:served_by] = 'Handled service reference is required.'
@@ -47,6 +49,7 @@ module Inflect
         true
       end
 
+      # @todo I18n errors.
       def valid_attribute_query_words
         if response_description[:query_words].nil? || response_description[:query_words].empty?
           @errors[:query_words] = 'Queried words is required.'
@@ -55,6 +58,7 @@ module Inflect
         true
       end
 
+      # @todo I18n errors.
       def valid_attribute_handled_word
         if response_description[:handled_word].nil?
           @errors[:handled_word] = 'Handled words of service is required.'
