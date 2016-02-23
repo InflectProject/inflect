@@ -3,52 +3,96 @@ require 'inflect/response'
 
 class ResponseTest < Minitest::Test
   def setup
+    @content        = 'A response'
+    @required_keys  = [:content, :served_by, :query_words, :handled_word]
+    @service_name   = 'Service'
+    @service_word   = 'NEWS'
   end
 
   def test_empty_response
     response = Inflect::Response.new
     refute response.is_valid?
-    assert_equal response.errors.keys, [:content, :served_by, :query_words, :handled_word]
+    assert_equal response.errors.keys, @required_keys
   end
 
-  def test_response_with_served_by_only
-    response = Inflect::Response.new 'response!', { served_by: 'Service' }
+  # Should we test default parameters?
+  def test_with_served_by_only
+    options = { served_by: @service_name }
+    response = Inflect::Response.new @content, options
+
     refute response.is_valid?
-    assert_equal response.errors.keys, [:query_words, :handled_word]
+
+    absent_keys = @required_keys - ([:content] + options.keys)
+    assert_equal response.errors.keys, absent_keys
   end
 
-  def test_response_with_query_words_only
-    response = Inflect::Response.new 'response!', { query_words: ['NEWS'] }
+  def test_with_query_words_only
+    options = { query_words: [@service_word] }
+    response = Inflect::Response.new @content, options
+
     refute response.is_valid?
-    assert_equal response.errors.keys, [:served_by, :handled_word]
+
+    absent_keys = @required_keys - ([:content] + options.keys)
+    assert_equal response.errors.keys, absent_keys
   end
 
-  def test_response_with_handled_word_only
-    response = Inflect::Response.new 'response!', { handled_word: 'NEWS' }
+  def test_with_handled_word_only
+    options = { handled_word: 'NEWS' }
+    response = Inflect::Response.new @content, options
+
     refute response.is_valid?
-    assert_equal response.errors.keys, [:served_by, :query_words]
+
+    absent_keys = @required_keys - ([:content] + options.keys)
+    assert_equal response.errors.keys, absent_keys
   end
 
-  def test_response_with_two_requireds_attributes_content_as_string
-    response = Inflect::Response.new 'response!', { served_by: 'Service', handled_word: 'NEWS' }
+  def test_with_two_required_attributes_content_as_string
+    options = {
+      served_by: @service_name,
+      handled_word: @service_word
+    }
+    response = Inflect::Response.new @content, options
+
     refute response.is_valid?
-    assert_equal response.errors.keys, [:query_words]
+
+    absent_keys = @required_keys - ([:content] + options.keys)
+    assert_equal response.errors.keys, absent_keys
   end
 
-  def test_response_with_requireds_attributes_content_as_string
-    response = Inflect::Response.new 'response!', { served_by: 'Service', query_words: ['NEWS'], handled_word: 'NEWS' }
+  def test_with_content_as_string
+    options = {
+      served_by: @service_name,
+      query_words: [@service_word],
+      handled_word: @service_word
+    }
+    response = Inflect::Response.new @content, options
+
     assert response.is_valid?
     assert_equal response.errors.keys, []
   end
 
-  def test_response_with_requireds_attributes_content_as_hash
-    response = Inflect::Response.new({ this_is_the_content: "response!" }, { served_by: 'Service', query_words: ['NEWS'], handled_word: 'NEWS' })
+  def test_with_content_as_hash
+    content = { this_is_the_content: @content }
+    options = {
+      served_by: @service_name,
+      query_words: [@service_word],
+      handled_word: @service_word
+    }
+    response = Inflect::Response.new(content, options)
+
     assert response.is_valid?
     assert_equal response.errors.keys, []
   end
 
-  def test_response_with_requireds_attributes_content_as_invalid_type
-    response = Inflect::Response.new(["response!"], { served_by: 'Service', query_words: ['NEWS'], handled_word: 'NEWS' })
+  def test_with_content_as_invalid_type
+    content = [@content]
+    options = {
+      served_by: @service_name,
+      query_words: [@service_word],
+      handled_word: @service_word
+    }
+    response = Inflect::Response.new(content, options)
+
     refute response.is_valid?
     assert_equal response.errors.keys, [:content]
   end

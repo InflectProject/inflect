@@ -3,3 +3,4 @@ require 'inflect'
 
 require 'minitest/autorun'
 require 'abstract_service'
+require 'pry'
