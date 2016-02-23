@@ -21,7 +21,7 @@ module Inflect
 
     # Validates required attributes for a valid response.
     # @return [true, false]
-    def is_valid?
+    def valid?
       private_methods.grep(/valid_attribute/).collect do |method_name|
         self.send method_name
       end.all?
@@ -63,10 +63,9 @@ module Inflect
 
     # @todo Extract attribute_keys to configuration or some place else.
     def extract_attributes(description={})
-      attribute_keys =
-         [:served_by, :query_words, :handled_word]
-
       attributes = {}
+      attribute_keys = [:served_by, :query_words, :handled_word]
+
       attribute_keys.each do |key|
         attributes.store key, description[key]
       end

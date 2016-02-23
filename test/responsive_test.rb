@@ -38,6 +38,6 @@ class ResponsiveTest < Minitest::Test
     words = ['NEWS']
     response = @service.handle!(words)
     assert_equal response.class, Inflect::Response
-    refute response.is_valid?
+    refute response.valid?
   end
 end

@@ -11,7 +11,7 @@ class ResponseTest < Minitest::Test
 
   def test_empty_response
     response = Inflect::Response.new
-    refute response.is_valid?
+    refute response.valid?
     assert_equal response.errors.keys, @required_keys
   end
 
@@ -20,7 +20,7 @@ class ResponseTest < Minitest::Test
     options = { served_by: @service_name }
     response = Inflect::Response.new @content, options
 
-    refute response.is_valid?
+    refute response.valid?
 
     absent_keys = @required_keys - ([:content] + options.keys)
     assert_equal response.errors.keys, absent_keys
@@ -30,7 +30,7 @@ class ResponseTest < Minitest::Test
     options = { query_words: [@service_word] }
     response = Inflect::Response.new @content, options
 
-    refute response.is_valid?
+    refute response.valid?
 
     absent_keys = @required_keys - ([:content] + options.keys)
     assert_equal response.errors.keys, absent_keys
@@ -40,7 +40,7 @@ class ResponseTest < Minitest::Test
     options = { handled_word: 'NEWS' }
     response = Inflect::Response.new @content, options
 
-    refute response.is_valid?
+    refute response.valid?
 
     absent_keys = @required_keys - ([:content] + options.keys)
     assert_equal response.errors.keys, absent_keys
@@ -53,7 +53,7 @@ class ResponseTest < Minitest::Test
     }
     response = Inflect::Response.new @content, options
 
-    refute response.is_valid?
+    refute response.valid?
 
     absent_keys = @required_keys - ([:content] + options.keys)
     assert_equal response.errors.keys, absent_keys
@@ -67,7 +67,7 @@ class ResponseTest < Minitest::Test
     }
     response = Inflect::Response.new @content, options
 
-    assert response.is_valid?
+    assert response.valid?
     assert_equal response.errors.keys, []
   end
 
@@ -80,7 +80,7 @@ class ResponseTest < Minitest::Test
     }
     response = Inflect::Response.new(content, options)
 
-    assert response.is_valid?
+    assert response.valid?
     assert_equal response.errors.keys, []
   end
 
@@ -93,7 +93,7 @@ class ResponseTest < Minitest::Test
     }
     response = Inflect::Response.new(content, options)
 
-    refute response.is_valid?
+    refute response.valid?
     assert_equal response.errors.keys, [:content]
   end
 end

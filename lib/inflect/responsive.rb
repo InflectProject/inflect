@@ -9,7 +9,7 @@ module Inflect
     # @return [Inflect::Response, nil] Returns nil if response is not valid.
     def respond(content, options = {})
       opts = base_options.merge(options)
-      valid_response(Inflect::Response.new(content, opts))
+      validate_response(Inflect::Response.new(content, opts))
     end
 
     # Method that creates Response instance, skipping response validation.
@@ -20,17 +20,15 @@ module Inflect
     end
 
     private
-    def valid_response(response)
-      response.is_valid? ? response : nil
+
+    def validate_response(response)
+      response.valid? ? response : nil
     end
 
     # Set a Hash with required +option+ parameters for Inflect::Response.
     # @return [Hash]
     def base_options
-      # +self+ is the handler service.
-      {
-        served_by: self.class
-      }
+      {served_by: self.class}
     end
   end
 end
