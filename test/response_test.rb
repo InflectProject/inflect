@@ -12,7 +12,7 @@ class ResponseTest < Minitest::Test
   def test_empty_response
     response = Inflect::Response.new
     refute response.valid?
-    assert_equal response.errors.keys, @required_keys
+    assert_equal response.errors.keys.sort, @required_keys.sort
   end
 
   # Should we test default parameters?

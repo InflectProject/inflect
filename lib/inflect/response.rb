@@ -19,6 +19,21 @@ module Inflect
       @attributes     =   extract_attributes(description)
     end
 
+    def self.attribute_keys
+      @@attribute_keys = [:served_by, :query_words, :handled_word]
+    end
+
+    attribute_keys.each do |key|
+      define_method :"valid_attribute_#{key}" do
+        if attributes[key].nil?
+          errors[key] = @error_messages[key.to_s]
+          return false
+        end
+        true
+      end
+      private :"valid_attribute_#{key}"
+    end
+
     # Validates required attributes for a valid response.
     # @return [true, false]
     def valid?
@@ -37,36 +52,10 @@ module Inflect
       true
     end
 
-    def valid_attribute_served_by
-      if attributes[:served_by].nil?
-        errors[:served_by] = @error_messages['served_by']
-        return false
-      end
-      true
-    end
-
-    def valid_attribute_query_words
-      if attributes[:query_words].nil? || attributes[:query_words].empty?
-        errors[:query_words] = @error_messages['query_words']
-        return false
-      end
-      true
-    end
-
-    def valid_attribute_handled_word
-      if attributes[:handled_word].nil?
-        errors[:handled_word] = @error_messages['handled_word']
-        return false
-      end
-      true
-    end
-
-    # @todo Extract attribute_keys to configuration or some place else.
     def extract_attributes(description={})
       attributes = {}
-      attribute_keys = [:served_by, :query_words, :handled_word]
 
-      attribute_keys.each do |key|
+      self.class.attribute_keys.each do |key|
         attributes.store key, description[key]
       end
       attributes
