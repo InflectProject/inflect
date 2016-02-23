@@ -30,8 +30,8 @@ module Inflect
       services.sort
     end
 
-    def self.locale(path = Inflect.configuration.locale_path)
-      YAML.load_file(path)
+    def self.locale(path = nil)
+      YAML.load_file(path || Inflect.configuration.locale_path)
     end
   end
 end
