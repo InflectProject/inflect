@@ -1,3 +1,5 @@
+require 'inflect/loader'
+
 module Inflect
   #Responsible of encapsulate all the content of the service response
   class Response
@@ -10,10 +12,11 @@ module Inflect
     # @option description [String] :handled_word The handled word by the service. Required.
     # @return [Inflect::Response]
     def initialize(content=nil, description={})
-      @content    = content
-      @timestamp  = Time.now
-      @errors     = {}
-      @attributes = extract_attributes(description)
+      @content        =   content
+      @timestamp      =   Time.now
+      @errors         =   {}
+      @error_messages =   Loader::locale['errors']
+      @attributes     =   extract_attributes(description)
     end
 
     # Validates required attributes for a valid response.
@@ -26,37 +29,33 @@ module Inflect
 
     private
 
-    # @todo I18n errors.
     def valid_attribute_content
       unless [String, Hash].include? content.class
-        @errors[:content] = 'Content must be a String or Hash instance.'
+        errors[:content] = @error_messages['content']
         return false
       end
       true
     end
 
-    # @todo I18n errors.
     def valid_attribute_served_by
       if attributes[:served_by].nil?
-        @errors[:served_by] = 'Handled service reference is required.'
+        errors[:served_by] = @error_messages['served_by']
         return false
       end
       true
     end
 
-    # @todo I18n errors.
     def valid_attribute_query_words
       if attributes[:query_words].nil? || attributes[:query_words].empty?
-        @errors[:query_words] = 'Queried words is required.'
+        errors[:query_words] = @error_messages['query_words']
         return false
       end
       true
     end
 
-    # @todo I18n errors.
     def valid_attribute_handled_word
       if attributes[:handled_word].nil?
-        @errors[:handled_word] = 'Handled words of service is required.'
+        errors[:handled_word] = @error_messages['handled_word']
         return false
       end
       true
@@ -65,8 +64,7 @@ module Inflect
     # @todo Extract attribute_keys to configuration or some place else.
     def extract_attributes(description={})
       attribute_keys =
-         [:served_by, :query_words, :handled_word, :talk_to_service,
-          :speech_response]
+         [:served_by, :query_words, :handled_word]
 
       attributes = {}
       attribute_keys.each do |key|

@@ -1,0 +1,5 @@
+errors:
+  content: 'Content must be a String or Hash instance.'
+  served_by: 'Handled service reference is required.'
+  query_words: 'Queried words is required.'
+  handled_word: 'Handled words of service is required.'
