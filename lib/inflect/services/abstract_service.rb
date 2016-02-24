@@ -36,7 +36,7 @@ module Inflect
     # @param words [Array] an Array of strings with key words.
     # @return [Boolean]
     def valid?(words)
-      @words.select { |my_word| words.include? my_word }.any?
+      (@words & words).any?
     end
 
     # Returns a Hash with retrieved data.
