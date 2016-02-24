@@ -22,9 +22,7 @@ module Inflect
         require "#{file}"
 
         filename = File.basename(file, '.rb')
-        base_service = Inflect.configuration.base_service
-
-        services << base_service.const_get(filename.camelize).instance
+        services << Inflect.const_get(filename.camelize).instance
       end
       services.sort
     end
