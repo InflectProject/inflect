@@ -1,4 +1,5 @@
 require 'inflect/loader'
+require 'inflect/i18n'
 
 module Inflect
   #Responsible of encapsulate all the content of the service response
@@ -15,7 +16,6 @@ module Inflect
       @content        =   content
       @timestamp      =   Time.now
       @errors         =   {}
-      @error_messages =   Loader::locale['errors']
       @attributes     =   extract_attributes(description)
     end
 
@@ -26,7 +26,7 @@ module Inflect
     attribute_keys.each do |key|
       define_method :"valid_attribute_#{key}" do
         if attributes[key].nil?
-          errors[key] = @error_messages[key.to_s]
+          errors[key] = I18n.errors(key)
           return false
         end
         true
@@ -46,7 +46,7 @@ module Inflect
 
     def valid_attribute_content
       unless [String, Hash].include? content.class
-        errors[:content] = @error_messages['content']
+        errors[:content] = I18n.errors('content')
         return false
       end
       true

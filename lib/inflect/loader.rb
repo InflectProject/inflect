@@ -1,7 +1,6 @@
+require 'yaml'
 require 'inflect/inflector'
 require 'inflect/configuration'
-
-autoload :YAML, 'yaml'
 
 module Inflect
   # Responsable for loading all the services for Inflect
@@ -31,7 +30,7 @@ module Inflect
     end
 
     def self.locale(path = nil)
-      YAML.load_file(path || Inflect.configuration.locale_path)
+      @@locale ||= YAML.load_file(path || Inflect.configuration.locale_path)
     end
   end
 end
