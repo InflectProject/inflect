@@ -4,7 +4,7 @@ require 'inflect/response'
 class ResponseTest < Minitest::Test
   def setup
     @content        = 'A response'
-    @required_keys  = [:content, :served_by, :query_words, :handled_word]
+    @required_keys  = [:content, :served_by, :query_words]
     @service_name   = 'Service'
     @service_word   = 'NEWS'
   end
@@ -28,16 +28,6 @@ class ResponseTest < Minitest::Test
 
   def test_with_query_words_only
     options = { query_words: [@service_word] }
-    response = Inflect::Response.new @content, options
-
-    refute response.valid?
-
-    absent_keys = @required_keys - ([:content] + options.keys)
-    assert_equal response.errors.keys, absent_keys
-  end
-
-  def test_with_handled_word_only
-    options = { handled_word: 'NEWS' }
     response = Inflect::Response.new @content, options
 
     refute response.valid?

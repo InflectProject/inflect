@@ -20,7 +20,7 @@ module Inflect
     end
 
     def self.attribute_keys
-      @@attribute_keys = [:served_by, :query_words, :handled_word]
+      @@attribute_keys = [:served_by, :query_words]
     end
 
     attribute_keys.each do |key|
