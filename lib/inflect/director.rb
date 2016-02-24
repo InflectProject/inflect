@@ -19,8 +19,14 @@ module Inflect
     # the work.
     # @param words [Array<String, Symbol>]
     def handle(words)
-      selected_service = services.select { |service| service.valid?(words) }.first
+      selected_service = select_service(words)
       selected_service.handle(words) unless selected_service.nil?
+    end
+
+    private
+
+    def select_service(words)
+      services.select { |service| service.valid?(words) }.first
     end
   end
 end
