@@ -1,6 +1,7 @@
 require "inflect/version"
 require "inflect/director"
 require "inflect/configuration"
+require "inflect/abstract_service"
 
 module Inflect
   class << self
