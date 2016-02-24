@@ -17,7 +17,7 @@ class LoaderTest < Minitest::Test
 
   # Getting paranoid...
   def test_all_loaded_classes_are_services
-    check_service = Proc.new do |service_class| 
+    check_service = Proc.new do |service_class|
       service_class.class.superclass == Inflect::AbstractService
     end
 
@@ -26,5 +26,12 @@ class LoaderTest < Minitest::Test
 
   def test_services_are_sorted_by_priority
     assert_operator @services.shift.priority, :<=, @services.shift.priority
+  end
+
+  def test_locale_is_loaded_properly
+    fixture_path = File.join(__dir__, 'fixtures/locale/dummy.yml')
+    locale = Inflect::Loader.locale(fixture_path)
+
+    assert_equal locale.class, Hash
   end
 end

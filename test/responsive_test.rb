@@ -20,7 +20,7 @@ class ResponsiveTest < Minitest::Test
     end
   end
 
-  def test_can_response
+  def test_can_respond
     assert_respond_to @service, :respond
   end
 
@@ -38,6 +38,6 @@ class ResponsiveTest < Minitest::Test
     words = ['NEWS']
     response = @service.handle!(words)
     assert_equal response.class, Inflect::Response
-    refute response.is_valid?
+    refute response.valid?
   end
 end
