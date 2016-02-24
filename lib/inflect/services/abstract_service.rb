@@ -33,21 +33,15 @@ module Inflect
     # Receives an Array of words and returns true or false depending
     # if the Service can handle the request given by the words.
     #
-    # @todo Standarize the way valid? searches in words array so we
-    #   don't have to implement that logic in every service.
-    # @example @words.select { |my_word| words.include? my_word }.reduce { |a, b| a || b }
     # @param words [Array] an Array of strings with key words.
     # @return [Boolean]
     def valid?(words)
-      message = "#{self.class} must implement valid? method,
-             for more information see AbstractService class."
-      raise NoMethodError.new message
+      (@words & words).any?
     end
 
     # Returns a Hash with retrieved data.
     #
     # @param words [Array] an Array of strings with key words.
-    # @todo Define a standard format for the handle response.
     def handle(words)
       message = "#{self.class} must implement handle method,
              for more information see AbstractService class."

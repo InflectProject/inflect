@@ -29,11 +29,6 @@ class ResponsiveTest < Minitest::Test
     assert_equal @service.handle(words).class, Inflect::Response
   end
 
-  def test_responds_with_nil
-    words = ['UNKNOWN WORD']
-    assert_nil @service.handle(words)
-  end
-
   def test_responds_with_response_object_skipping_response_validation
     words = ['NEWS']
     response = @service.handle!(words)
