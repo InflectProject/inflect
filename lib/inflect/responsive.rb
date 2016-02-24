@@ -8,7 +8,7 @@ module Inflect
     # @param content [String, Hash] the response of the service.
     # @return [Inflect::Response, nil] Returns nil if response is not valid.
     def respond(content, options = {})
-      opts = base_options.merge(options)
+      opts = merge_options(options)
       validate_response(Inflect::Response.new(content, opts))
     end
 
@@ -16,7 +16,8 @@ module Inflect
     # @param content [String, Hash] the response of the service.
     # @return [Inflect::Response]
     def respond!(content, options = {})
-      Inflect::Response.new(content, options)
+      opts = merge_options(options)
+      Inflect::Response.new(content, opts)
     end
 
     private
@@ -25,9 +26,13 @@ module Inflect
       response.valid? ? response : nil
     end
 
+    def merge_options(options)
+      default_options.merge(options)
+    end
+
     # Set a Hash with required +option+ parameters for Inflect::Response.
     # @return [Hash]
-    def base_options
+    def default_options
       {served_by: self.class}
     end
   end
