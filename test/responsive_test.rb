@@ -20,7 +20,7 @@ class ResponsiveTest < Minitest::Test
     end
   end
 
-  def test_can_response
+  def test_can_respond
     assert_respond_to @service, :respond
   end
 
