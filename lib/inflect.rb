@@ -3,12 +3,15 @@ require "inflect/director"
 require "inflect/configuration"
 
 module Inflect
-  def self.handle(words)
-    director.handle(words)
-  end
+  class << self
+    def handle(words)
+      director.handle(words)
+    end
 
-  def self.director
-    @@director ||= Director.new(self.configuration.services_path)
+    private
+
+    def director
+      @@director ||= Director.new(self.configuration.services_path)
+    end
   end
-  private_class_method :director
 end
