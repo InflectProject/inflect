@@ -1,4 +1,4 @@
-require 'abstract_service'
+require 'inflect/abstract_service'
 
 module Inflect
   class << self
