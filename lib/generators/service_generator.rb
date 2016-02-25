@@ -1,5 +1,4 @@
 require "thor"
-require 'pry'
 
 class ServiceGenerator < Thor::Group
 	include Thor::Actions

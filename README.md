@@ -1,6 +1,6 @@
 # Inflect
 
-Backend service API support for the inflect-client app.
+The micro-framework for service integration.
 
 ## Installation
 
@@ -20,7 +20,32 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Generate your Service:
+
+    $ bin/inflect generate:service weather
+
+Implement at least the ServiceWeather#handle method:
+
+```ruby
+class WeatherService < Inflect::AbstractService
+  def initialize
+    @priority = 2
+    @words    = %W[WEATHER TODAY]
+  end
+
+  def handle(words)
+    respond "Weather for today is... very hot."
+  end
+end
+```
+
+Call Inflect with the array of words.
+
+```ruby
+words = %W[WEATHER TODAY]
+
+Inflect.handle(words) # Return Response object with weather for today
+```
 
 ## Development
 
