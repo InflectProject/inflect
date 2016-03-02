@@ -17,7 +17,7 @@ module Inflect
     attr_reader :services_path, :locale_path
 
     def initialize
-      @services_path = File.join(__dir__, 'services')
+      @services_path = File.join('lib', 'services')
       @locale_path   = File.join(File.dirname(__FILE__), 'locale/en.yml')
     end
   end
