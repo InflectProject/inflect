@@ -2,6 +2,13 @@
 
 The micro-framework for service integration.
 
+## Overview
+
+[![Gem Version](https://img.shields.io/gem/v/inflect.svg)](https://rubygems.org/gems/inflect)
+[![Code Climate](https://codeclimate.com/github/InflectProject/inflect/badges/gpa.svg)](https://codeclimate.com/github/InflectProject/inflect)
+[![Inline docs](https://inch-ci.org/github/InflectProject/inflect.png)](https://inch-ci.org/github/InflectProject/inflect)
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
