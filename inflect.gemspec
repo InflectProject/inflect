@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Backend service API support for the inflect-client app.}
   spec.description   = %q{Integrate service API's by following a simple and modular interface.}
   spec.license       = "MIT"
+  spec.homepage      = "https://github.com/InflectProject/inflect"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
