@@ -9,12 +9,10 @@ class ServiceGenerator < Thor::Group
 
 	argument :name
 	def generate
-		template('service.tt', "lib/inflect/services/#{name}_service.rb")
+		template('service.tt', "lib/services/#{name}_service.rb")
 	end
 end
 
 class CLI < Thor
 	register ServiceGenerator, "generate:service", "generate:service <service_name>", "Generates a service skeleton."
 end
-
-CLI.start(ARGV)

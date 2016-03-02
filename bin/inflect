@@ -1,2 +1,5 @@
 #!/usr/bin/env ruby
-require './lib/generators/service_generator'
+require 'inflect'
+require 'generators/service_generator'
+
+CLI.start(ARGV)
