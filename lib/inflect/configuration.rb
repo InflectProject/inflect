@@ -7,8 +7,8 @@ module Inflect
     @configuration ||= Configuration.new
   end
 
-  def self.configure(&block)
-    yield configuration
+  def self.configure
+    yield configuration if block_given?
   end
 
   # The class in charge of centralizing the application's

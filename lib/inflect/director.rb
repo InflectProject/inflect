@@ -26,7 +26,7 @@ module Inflect
     private
 
     def select_service(words)
-      services.select { |service| service.valid?(words) }.first
+      services.find { |service| service.valid?(words) }
     end
   end
 end
