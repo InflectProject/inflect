@@ -19,7 +19,7 @@ module Inflect
       services = []
 
       Dir["#{path}/*.rb"].each do |file|
-        require "#{file}"
+        require "./#{file}"
 
         filename = File.basename(file, '.rb')
         services << Inflect.const_get(filename.camelize).instance
