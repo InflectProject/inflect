@@ -6,7 +6,6 @@ module Inflect
   # Responsable for loading all the services for Inflect
   # to comunicate with them and decide wich one will handle
   # the request.
-  #
   module Loader
     using Inflector
     # Loads all the services from the given path, sorted by
@@ -27,6 +26,8 @@ module Inflect
       services.sort
     end
 
+    # Loads the locale file from the given path
+    # Default in Inflect::Configuration.
     def self.locale(path = nil)
       @@locale ||= YAML.load_file(path || Inflect.configuration.locale_path)
     end

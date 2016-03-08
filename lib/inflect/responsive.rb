@@ -20,7 +20,7 @@ module Inflect
       Inflect::Response.new(content, opts)
     end
 
-    # Method that ensures that the service calls respond method
+    # Method that ensures that the service calls respond method.
     # @param words [Array<String>]
     # @return [Inflect::Response, nil] Returns nil if response is not valid.
     def responds_to(words)

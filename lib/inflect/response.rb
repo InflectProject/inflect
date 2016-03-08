@@ -2,9 +2,16 @@ require 'inflect/loader'
 require 'inflect/i18n'
 
 module Inflect
-  #Responsible of encapsulate all the content of the service response
+  #Responsible of encapsulate all the content of the service response.
   class Response
-    attr_reader :content, :attributes, :timestamp, :errors
+    # Response content as itself.
+    attr_reader :content
+    # Response attributes like served_by and query_words.
+    attr_reader :attributes
+    # Response timestamp.
+    attr_reader :timestamp
+    #If is not a valid Response, errors lists the not valid attributes.
+    attr_reader :errors
 
     # @param content [String, Hash] The response of the service. Required.
     # @param description [Hash] Contains all the description of service response.
