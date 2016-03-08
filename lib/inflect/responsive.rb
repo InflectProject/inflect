@@ -25,7 +25,7 @@ module Inflect
     # @return [Inflect::Response, nil] Returns nil if response is not valid.
     def responds_to(words)
       service_response = handle(words)
-      raise "Invalid Response Type. Expected Inflect::Response and returned #{ service_response.class }" unless ((service_response.is_a? Inflect::Response) && !service_response.nil?)
+      raise "Invalid Response Type. Expected nil or Inflect::Response and returned #{ service_response.class }" if !((service_response.is_a? Inflect::Response) || service_response.nil?)
       service_response
     end
 
