@@ -3,9 +3,11 @@ require "inflect/director"
 require "inflect/configuration"
 require "inflect/abstract_service"
 
+# Module thats starts the service loading.
+# It is used as facade to handle queried words.
 module Inflect
   class << self
-    # Start point to handle requested words.
+    # Start point to handle queried words.
     # @return [nil, Inflect::Response]
     def handle(words)
       director.handle(words)

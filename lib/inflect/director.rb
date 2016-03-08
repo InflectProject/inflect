@@ -5,6 +5,7 @@ module Inflect
   # The class in charge of managing the access
   # and selection of the services.
   class Director
+    # List of the services loaded successfully sorted by priority.
     attr_reader :services
 
     # @param services_path [String]

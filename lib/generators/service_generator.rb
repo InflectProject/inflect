@@ -9,9 +9,9 @@ class ServiceGenerator < Thor::Group
 		File.join(File.dirname(__FILE__), 'templates')
 	end
 
+	argument :name
 	# Responsible to generate the named service inside lib/services path
 	# of working directory.
-	argument :name
 	def generate
 		template('service.tt', "lib/services/#{name}_service.rb")
 	end

@@ -26,6 +26,7 @@ module Inflect
       @attributes     =   extract_attributes(description)
     end
 
+    # Keys of the required attributes.
     def self.attribute_keys
       @@attribute_keys = [:served_by, :query_words]
     end
