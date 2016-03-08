@@ -1,5 +1,6 @@
 require 'test_helper'
 require_relative './fixtures/services/news_service'
+require_relative './fixtures/services/weather_service'
 require 'inflect/response'
 require 'inflect/responsive'
 
@@ -18,6 +19,17 @@ class ResponsiveTest < Minitest::Test
         respond! nil
       end
     end
+
+    WeatherService.class_eval do
+      include Inflect::Responsive
+    end
+
+    @weather_service = WeatherService.instance
+    @weather_service.instance_eval do
+      def handle(words)
+        'Invalid Service Response'
+      end
+    end
   end
 
   def test_can_respond
@@ -26,7 +38,7 @@ class ResponsiveTest < Minitest::Test
 
   def test_responds_with_response_object
     words = ['NEWS']
-    assert_equal @service.handle(words).class, Inflect::Response
+    assert_equal @service.responds_to(words).class, Inflect::Response
   end
 
   def test_responds_with_response_object_skipping_response_validation
@@ -34,5 +46,10 @@ class ResponsiveTest < Minitest::Test
     response = @service.handle!(words)
     assert_equal response.class, Inflect::Response
     refute response.valid?
+  end
+
+  def test_raises_error_when_responds_non_response_instance
+    words = ['WEATHER']
+    assert_raises { @weather_service.responds_to(words) }
   end
 end

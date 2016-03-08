@@ -20,6 +20,15 @@ module Inflect
       Inflect::Response.new(content, opts)
     end
 
+    # Method that ensures that the service calls respond method
+    # @param words [Array<String>]
+    # @return [Inflect::Response, nil] Returns nil if response is not valid.
+    def responds_to(words)
+      service_response = handle(words)
+      raise "Invalid Response Type. Expected Inflect::Response and returned #{ service_response.class }" unless ((service_response.is_a? Inflect::Response) && !service_response.nil?)
+      service_response
+    end
+
     private
 
     def validate_response(response)
