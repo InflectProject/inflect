@@ -3,13 +3,13 @@ module Inflect
     attr_reader :configuration
   end
 
-  # Configuration instance reference
+  # Configuration instance reference.
   # @return [Inflect::Configuration]
   def self.configuration
     @configuration ||= Configuration.new
   end
 
-  # Method that allows configuration via block
+  # Method that allows configuration via block.
   def self.configure
     yield configuration if block_given?
   end
