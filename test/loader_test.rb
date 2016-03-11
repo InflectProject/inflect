@@ -3,7 +3,9 @@ require 'inflect/loader'
 
 class LoaderTest < Minitest::Test
   def setup
-    @services = Inflect::Loader.services(__dir__ + '/fixtures/services')
+    services_path = File.join('test', 'fixtures', 'services')
+
+    @services = Inflect::Loader.services(services_path)
   end
 
   def test_services_returns_an_array
