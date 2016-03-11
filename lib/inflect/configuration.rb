@@ -18,10 +18,11 @@ module Inflect
   # configuration.
   class Configuration
     # Location of the services directory.
-    attr_reader :services_path
+    attr_accessor :services_path
 
     # Location of the locale file.
-    attr_reader :locale_path
+    attr_accessor :locale_path
+
 
     def initialize
       @services_path = File.join('lib', 'services')
