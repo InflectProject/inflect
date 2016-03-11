@@ -5,13 +5,21 @@ module Inflect
   module Responsive
     # Method that creates Response instance.
     # @param words [Array<String>] The queried words.
-    # @return [Inflect::Response, nil] Returns nil if response is not valid.
+    # @return [Inflect::Response | nil] Returns nil if response is not valid.
     def serve(words)
       content, options = handle(words)
       opts = merge_options(options, { query_words: words })
       validate_response(Inflect::Response.new(content, opts))
     end
 
+    # Supply more expressiveness and flexibility to the interface
+    # by allowing multiple ways of responding.
+    # @example Only String
+    #    respond 'String Response'
+    # @example As a String with options
+    #    respond 'String Response', opt: 'Extra options'
+    # @example Or as a Hash with options
+    #    respond({content: 'Hashed Response'}, {opt: 'Extra options'})
     def respond(content, options= {})
       [content, options]
     end
