@@ -14,6 +14,6 @@ class ResponsiveTest < Minitest::Test
 
   def test_responds_with_response_object
     words = ['NEWS']
-    assert_equal @service.respond(words).class, Inflect::Response
+    assert_kind_of Inflect::Response, @service.serve(words)
   end
 end
