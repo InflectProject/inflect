@@ -21,7 +21,7 @@ module Inflect
     # @param words [Array<String, Symbol>]
     def handle(words)
       selected_service = select_service(words)
-      selected_service.responds_to(words) unless selected_service.nil?
+      selected_service.respond(words) unless selected_service.nil?
     end
 
     private

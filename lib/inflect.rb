@@ -7,7 +7,7 @@ require "inflect/abstract_service"
 # It is used as facade to handle queried words.
 module Inflect
   class << self
-    # Start point to handle queried words.
+    # Entry point to handle queried words.
     # @return [nil, Inflect::Response]
     def handle(words)
       director.handle(words)
