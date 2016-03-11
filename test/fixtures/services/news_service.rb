@@ -5,6 +5,6 @@ class NewsService < Inflect::AbstractService
   end
 
   def handle(words)
-    respond 'News Response', { query_words: words }
+    respond 'News Response'
   end
 end
