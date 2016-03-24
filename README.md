@@ -28,9 +28,13 @@ Or install it yourself as:
 
 Generate your Service:
 
-    $ bin/inflect generate:service weather
+    $ inflect generate:service Weather
 
-Implement at least the ServiceWeather#handle method:
+IMPORTANT: service name must be in CamelCase, example: 
+
+    $ inflect generate:service MyWeatherService
+
+Implement at least the WeatherService#handle method:
 
 ```ruby
 class WeatherService < Inflect::AbstractService

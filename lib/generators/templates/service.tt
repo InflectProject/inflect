@@ -1,4 +1,4 @@
-class <%=name.capitalize%>Service < Inflect::AbstractService
+class <%= name %>Service < Inflect::AbstractService
   # A WORDS Array constant with the key words of the Service.
   # @example Array for New York Times service
   #   words = %W[ NEWS TODAY NEW\ YORK\ TIMES]

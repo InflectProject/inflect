@@ -5,8 +5,25 @@ module Inflect
     refine String do
       SNAKE_SEPARATOR = '_'
 
-      def camelize
+      def camelize!
         self.split(SNAKE_SEPARATOR).map(&:capitalize!).join
+      end
+
+      def camelize
+        word = self.dup
+        word.camelize!
+      end
+
+      def underscore!
+        self.gsub!(/(?<=[a-z])[A-Z]/) do |char|
+          char = SNAKE_SEPARATOR + char
+        end
+        self.downcase!
+      end
+
+      def underscore
+        word = self.dup
+        word.underscore!
       end
     end
   end

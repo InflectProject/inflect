@@ -3,10 +3,13 @@ module Inflect
     attr_reader :configuration
   end
 
+  # Configuration instance reference.
+  # @return [Inflect::Configuration]
   def self.configuration
     @configuration ||= Configuration.new
   end
 
+  # Method that allows configuration via block.
   def self.configure
     yield configuration if block_given?
   end
@@ -14,7 +17,12 @@ module Inflect
   # The class in charge of centralizing the application's
   # configuration.
   class Configuration
-    attr_reader :services_path, :locale_path
+    # Location of the services directory.
+    attr_accessor :services_path
+
+    # Location of the locale file.
+    attr_accessor :locale_path
+
 
     def initialize
       @services_path = File.join('lib', 'services')
