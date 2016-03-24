@@ -28,7 +28,11 @@ Or install it yourself as:
 
 Generate your Service:
 
-    $ inflect generate:service weather
+    $ inflect generate:service Weather
+
+IMPORTANT: service name must be in CamelCase, example: 
+
+    $ inflect generate:service MyWeatherService
 
 Implement at least the WeatherService#handle method:
 
