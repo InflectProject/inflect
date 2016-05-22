@@ -12,8 +12,11 @@ class ResponsiveTest < Minitest::Test
     assert_respond_to @service, :respond
   end
 
-  def test_responds_with_response_object
-    words = ['NEWS']
-    assert_kind_of Inflect::Response, @service.serve(words)
+  def test_responds_with_response_object_simple_content
+    assert_kind_of Inflect::Response, @service.serve(['NEWS'])
+  end
+
+  def test_responds_with_response_object_complex_content
+    assert_kind_of Inflect::Response, @service.serve(['WEATHER'])
   end
 end

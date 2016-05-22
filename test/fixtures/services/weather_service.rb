@@ -5,6 +5,7 @@ class WeatherService < Inflect::AbstractService
   end
 
   def handle(words)
-    respond 'The weather for today, is like... hell.'
+    content = {content: 'The weather for today, is like... hell.'}
+    respond content, {type: 'simple'}
   end
 end
