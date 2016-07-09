@@ -59,4 +59,16 @@ class ResponseTest < Minitest::Test
     refute response.valid?
     assert_equal response.errors.keys, [:content]
   end
+
+  def test_to_hash
+    content = @content
+    options = {
+      served_by: @service_name,
+      query_words: [@service_word],
+      handled_word: @service_word
+    }
+
+    response = Inflect::Response.new(content, options)
+    assert_kind_of Hash, response.to_hash
+  end
 end
