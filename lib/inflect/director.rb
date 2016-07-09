@@ -21,13 +21,19 @@ module Inflect
     # @param words [Array<String, Symbol>]
     def handle(words)
       selected_service = select_service(words)
-      selected_service.serve(words) unless selected_service.nil?
+      if selected_service.nil?
+        raise "No service can respond to #{words.first}"
+      else
+        selected_service.serve(words)
+      end
     end
 
     private
 
     def select_service(words)
-      services.find { |service| service.valid?(words) }
+      services.find do |service|
+        service.valid?(words)
+      end
     end
   end
 end

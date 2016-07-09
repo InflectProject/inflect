@@ -1,5 +1,6 @@
 require 'inflect/loader'
 require 'inflect/i18n'
+require 'json'
 
 module Inflect
   #Responsible of encapsulate all the content of the service response.
@@ -50,6 +51,21 @@ module Inflect
       end.all?
     end
 
+    # Returns the Object as Hash
+    # @return Hash
+    def to_hash
+      attrs = {}
+      vars  = splitted_instance_variables
+      vars.each { |var| attrs[var.to_s] = send(var) }
+      attrs
+    end
+
+    # Returns the response in json format
+    # @return String
+    def to_json
+      to_hash.to_json
+    end
+
     private
 
     def valid_attribute_content
@@ -58,6 +74,10 @@ module Inflect
         return false
       end
       true
+    end
+
+    def splitted_instance_variables
+      instance_variables.map { |var| var.to_s.split('@')[1] }
     end
   end
 end
