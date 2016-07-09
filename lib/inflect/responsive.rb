@@ -9,7 +9,7 @@ module Inflect
     def serve(words)
       content, options = handle(words)
       opts = merge_options(options, { query_words: words })
-      validate_response(Inflect::Response.new(content, opts))
+      response = validate_response(Inflect::Response.new(content, opts))
     end
 
     # Supply more expressiveness and flexibility to the interface
@@ -20,7 +20,7 @@ module Inflect
     #    respond 'String Response', opt: 'Extra options'
     # @example Or as a Hash with options
     #    respond({content: 'Hashed Response'}, {opt: 'Extra options'})
-    def respond(content, options= {})
+    def respond(content, options = {})
       [content, options]
     end
 
