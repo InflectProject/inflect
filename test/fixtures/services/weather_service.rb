@@ -1,11 +1,14 @@
 class WeatherService < Inflect::AbstractService
   def initialize
     @priority = 2
-    @words = ['WEATHER']
+    @words    = ['WEATHER']
+    @options  = {type: 'simple'}
   end
+
+  attr_reader :options
 
   def handle(words)
     content = {content: 'The weather for today, is like... hell.'}
-    respond content, {type: 'simple'}
+    respond content, options
   end
 end
