@@ -14,16 +14,16 @@ module Inflect
     attr_reader :errors
 
     # @param content [String, Hash] The response of the service. Required.
-    # @param description [Hash] Contains all the description of service response.
-    # @option description [Class] :served_by Handler Service. Instance of AbstractService. Required.
-    # @option description [Array<String>] :query_words The list of words received on the request. Required.
-    # @option description [String] :handled_word The handled word by the service. Required.
+    # @param attributes [Hash] Contains all the attributes of service response.
+    # @option attributes [Class] :served_by Handler Service. Instance of AbstractService. Required.
+    # @option attributes [Array<String>] :query_words The list of words received on the request. Required.
+    # @option attributes [String] :handled_word The handled word by the service. Required.
     # @return [Inflect::Response]
-    def initialize(content=nil, description={})
+    def initialize(content=nil, attributes={})
       @content        =   content
       @timestamp      =   Time.now
       @errors         =   {}
-      @attributes     =   extract_attributes(description)
+      @attributes     =   attributes
     end
 
     # Keys of the required attributes.
@@ -58,15 +58,6 @@ module Inflect
         return false
       end
       true
-    end
-
-    def extract_attributes(description={})
-      attributes = {}
-
-      self.class.attribute_keys.each do |key|
-        attributes.store key, description[key]
-      end
-      attributes
     end
   end
 end
