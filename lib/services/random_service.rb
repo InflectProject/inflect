@@ -1,4 +1,4 @@
-class <%= name %>Service < Inflect::AbstractService
+class RandomService < Inflect::AbstractService
   # A WORDS Array constant with the key words of the Service,
   # the first word of the array represents the keyword for the
   # service, the second represents the action (method), and all the rest are
@@ -13,8 +13,8 @@ class <%= name %>Service < Inflect::AbstractService
   # one with most PRIORITY is picked.
   # Float::Infinity is the lowest priority.
   def initialize
-    @priority = Float::INFINITY
-    @words    = %W[].freeze
+    @priority = 1
+    @words    = %W[RANDOM].freeze
   end
 
   # This method is the only one needed for Inflect to work.

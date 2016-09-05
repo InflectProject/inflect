@@ -1,5 +1,6 @@
 require 'inflect/loader'
 require 'inflect/configuration'
+require 'inflect/request'
 
 module Inflect
   # The class in charge of managing the access
@@ -20,19 +21,20 @@ module Inflect
     # the work.
     # @param words [Array<String, Symbol>]
     def handle(words)
-      selected_service = select_service(words)
+      request = Inflect::Request.new(words)
+      selected_service = select_service(request)
       if selected_service.nil?
-        raise "No service can respond to #{words.first}"
+        raise "No service can respond to #{request.keyword}"
       else
-        selected_service.serve(words)
+        selected_service.serve(request)
       end
     end
 
     private
 
-    def select_service(words)
+    def select_service(request)
       services.find do |service|
-        service.valid?(words)
+        service.valid? request
       end
     end
   end

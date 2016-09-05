@@ -30,7 +30,7 @@ Generate your Service:
 
     $ inflect generate:service Weather
 
-IMPORTANT: service name must be in CamelCase, example: 
+IMPORTANT: service name must be in CamelCase, example:
 
     $ inflect generate:service MyWeatherService
 
@@ -43,8 +43,20 @@ class WeatherService < Inflect::AbstractService
     @words    = %W[WEATHER TODAY]
   end
 
-  def handle(words)
-    respond "Weather for today is... very hot."
+  # This method will be executed whenever the action is not defined in the
+  # words query array.
+  def default
+    respond "This is the default weather cast"
+  end
+
+  # This is method will be called when the action TODAY is present in
+  # the words query array. It can optionally carry necessary arguments.
+  def today(location = nil)
+    if location.nil?
+      respond "Weather for today is... very hot."
+    else
+      respond "The weather for #{location} is... also very hot."
+    end
   end
 end
 ```

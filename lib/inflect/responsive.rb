@@ -6,10 +6,10 @@ module Inflect
     # Method that creates Response instance.
     # @param words [Array<String>] The queried words.
     # @return [Inflect::Response | nil] Returns nil if response is not valid.
-    def serve(words)
-      content, options = handle(words)
-      opts = merge_options(options, { query_words: words })
-      response = validate_response(Inflect::Response.new(content, opts))
+    def serve(request)
+      content, options = handle(request)
+      opts = merge_options(options, { query_words: request.query_words })
+      validate_response(Inflect::Response.new(content, opts))
     end
 
     # Supply more expressiveness and flexibility to the interface

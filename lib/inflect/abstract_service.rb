@@ -30,21 +30,68 @@ module Inflect
       priority <=> other_service.priority
     end
 
-    # Receives an Array of words and returns true or false depending
-    # if the Service can handle the request given by the words.
-    #
-    # @param words [Array] an Array of strings with key words.
+    # Receives a Request and returns true if the service can handle
+    # the request given.
+    # @param Inflect::Request
     # @return [Boolean]
-    def valid?(words)
-      (@words & words).any?
+    def valid?(request)
+      (self.keyword.eql? request.keyword) &&
+      action_defined(request.action)
     end
 
-    # Returns a Hash with retrieved data.
-    #
-    # @param words [Array] an Array of strings with key words.
-    def handle(words)
-      message = "#{self.class} must implement handle method,
-             for more information see AbstractService class."
+    # The +default+ is the method called when there is no action parameter inside
+    # the words query array.
+    def default
+      no_method_error
+    end
+
+    # Returns a Hash with retrieved data by routing from the request
+    # to the method specified by the request's action attribute.
+    # @param Inflect::Request
+    # @return Inflect::Response
+    def handle(request)
+      if action_defined(request.action) && !action_implemented(request.action)
+        no_method_error
+      else
+        if request.arguments.empty?
+          send request.action
+        else
+          send request.action, request.arguments
+        end
+      end
+    end
+
+    # Virtual attribute for the services keyword.
+    def keyword
+      words.first
+    end
+
+    # Virtual attributes for the service actions. Every action must
+    # have its matching method.
+    def actions
+      words[1..-1]
+    end
+
+    private
+
+    # Check if user defined the given action besides from the default_options
+    # action that is always present.
+    def action_defined(action)
+      (action.eql? :default) || (actions.include? action.to_s.upcase)
+    end
+
+    # Check if user really implemented the method corresponding to
+    # the action.
+    def action_implemented(action)
+      respond_to? action
+    end
+
+    # Method fired when users don't implement the method corresponding
+    # to the actions they define in the +words+ array.
+    def no_method_error
+      message = "#{self.class} declared the action #{request.action}
+             in #{self.words} but the method is missing, for more
+             information see Inflect::AbstractService class."
       raise NoMethodError.new message
     end
   end

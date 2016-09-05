@@ -7,7 +7,7 @@ class WeatherService < Inflect::AbstractService
 
   attr_reader :options
 
-  def handle(words)
+  def default
     content = {content: 'The weather for today, is like... hell.'}
     respond content, options
   end

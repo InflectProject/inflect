@@ -3,6 +3,7 @@ require_relative './fixtures/services/news_service'
 require_relative './fixtures/services/weather_service'
 require 'inflect/response'
 require 'inflect/responsive'
+require 'inflect/request'
 
 class ResponsiveTest < Minitest::Test
   def setup
@@ -15,14 +16,17 @@ class ResponsiveTest < Minitest::Test
   end
 
   def test_responds_with_response_object_simple_content
-    assert_kind_of Inflect::Response, @news.serve(['NEWS'])
+    req = Inflect::Request.new(['NEWS'])
+    assert_kind_of Inflect::Response, @news.serve(req)
   end
 
   def test_responds_with_response_object_complex_content
-    assert_kind_of Inflect::Response, @weather.serve(['WEATHER'])
+    req = Inflect::Request.new(['WEATHER'])
+    assert_kind_of Inflect::Response, @weather.serve(req)
   end
 
   def test_response_has_optional_attributes
-    assert @weather.serve(['WEATHER']).attributes.key? :type
+    req = Inflect::Request.new(['WEATHER'])
+    assert @weather.serve(req).attributes.key? :type
   end
 end
