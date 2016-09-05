@@ -9,7 +9,7 @@ class ServiceGenerator < Thor::Group
 	# Include Inflector for string management utils such
 	# as camelize.
 	using Inflect::Inflector
-	
+
 	# Defines the templates path.
 	def self.source_root
 		File.join(File.dirname(__FILE__), 'templates')
