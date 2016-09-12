@@ -1,5 +1,6 @@
 require 'singleton'
 require 'inflect/responsive'
+require 'inflect/service_provider_methods'
 
 module Inflect
   # Acts as an specification or standard required for a Service
@@ -10,6 +11,7 @@ module Inflect
     include Comparable
     include Singleton
     include Responsive
+    include ServiceProviderMethods
 
     # A +words+ Array constant with the key +words+ of the Service.
     # @example Array for New York Times service
@@ -26,7 +28,7 @@ module Inflect
     end
 
     # Implement Comparable in order to be sortable.
-    def <=> (other_service)
+    def <=>(other_service)
       priority <=> other_service.priority
     end
 
@@ -39,19 +41,13 @@ module Inflect
       action_defined(request.action)
     end
 
-    # The +default+ is the method called when there is no action parameter inside
-    # the words query array.
-    def default
-      no_method_error
-    end
-
     # Returns a Hash with retrieved data by routing from the request
     # to the method specified by the request's action attribute.
     # @param Inflect::Request
     # @return Inflect::Response
     def handle(request)
       if action_defined(request.action) && !action_implemented(request.action)
-        no_method_error
+        no_method_error request
       else
         if request.arguments.empty?
           send request.action
@@ -88,10 +84,12 @@ module Inflect
 
     # Method fired when users don't implement the method corresponding
     # to the actions they define in the +words+ array.
-    def no_method_error
-      message = "#{self.class} declared the action #{request.action}
-             in #{self.words} but the method is missing, for more
-             information see Inflect::AbstractService class."
+    def no_method_error(request)
+      if request.action.eql? :default
+        message = "No default action declared for #{self.class}, the default method must be implemented if you want #{self.class} to respond to #{self.words}."
+      else
+        message = "#{self.class} declared the action #{request.action} in #{self.words} but the method is missing, for more information see Inflect::AbstractService class."
+      end
       raise NoMethodError.new message
     end
   end
