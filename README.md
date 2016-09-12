@@ -30,11 +30,9 @@ Generate your Service:
 
     $ inflect generate:service Weather
 
-IMPORTANT: service name must be in CamelCase, example:
+IMPORTANT: service name must be in CamelCase.
 
-    $ inflect generate:service MyWeatherService
-
-Implement at least the WeatherService#handle method:
+All the actions that you declare in the array must have its corresponding method.
 
 ```ruby
 class WeatherService < Inflect::AbstractService
