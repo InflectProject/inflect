@@ -13,11 +13,16 @@ module Inflect
       director.handle(words)
     end
 
+    def reload
+      director.reload
+    end
+
     private
+
     # Method that returns the Director instance reference.
     # @return [Inflect::Director]
     def director
-      @@director ||= Director.new(self.configuration.services_path)
+      @@director ||= Director.new
     end
   end
 end

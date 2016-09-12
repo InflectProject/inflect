@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'fixtures/services/news_service'
+require 'fixtures/services/service_service'
 
 class ServiceTest < Minitest::Test
   def setup
@@ -35,5 +36,23 @@ class ServiceTest < Minitest::Test
 
     assert @service.valid? req
     assert_equal @service.serve(req).content, 'This is the news for the weather the next 15 days in buenos aires'
+  end
+
+  def test_service_that_uses_services
+    service = ServiceService.instance
+    words   = %W[SERVICES]
+    req = Inflect::Request.new(words)
+
+    assert service.serve(req).content.class.eql? Hash
+  end
+
+  def test_invalid_service
+    service = InvalidService.instance
+    words   = %W[INVALID]
+    req     = Inflect::Request.new(words)
+
+    assert_raises NoMethodError do
+      service.serve(req)
+    end
   end
 end

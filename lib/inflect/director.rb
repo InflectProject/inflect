@@ -1,20 +1,11 @@
-require 'inflect/loader'
-require 'inflect/configuration'
 require 'inflect/request'
+require 'inflect/service_provider_methods'
 
 module Inflect
   # The class in charge of managing the access
   # and selection of the services.
   class Director
-    # List of the services loaded successfully sorted by priority.
-    attr_reader :services
-
-    # @param services_path [String]
-    def initialize(services_path = nil)
-      @services = Loader.services(
-        services_path || Inflect.configuration.services_path
-      )
-    end
+    include ServiceProviderMethods
 
     # Finds the first Service that is able
     # to handle the request and lets him do
@@ -28,6 +19,10 @@ module Inflect
       else
         selected_service.serve(request)
       end
+    end
+
+    def reload
+      service_provider.reload
     end
 
     private
