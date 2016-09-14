@@ -1,3 +1,4 @@
+require 'singleton'
 require 'inflect/loader'
 require 'inflect/configuration'
 
